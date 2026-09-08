@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import type { CreateUserInput } from "../types/user.types.js";
+import  bcrypt  from "bcrypt" ; 
 
 export const createUser = async (data: CreateUserInput) => {
   const existingUser = await User.findOne({
@@ -10,7 +11,12 @@ export const createUser = async (data: CreateUserInput) => {
     throw new Error("Email already exists");
   }
 
-  const user = await User.create(data);
+    const hashedPassword = await bcrypt.hash(data.password, 12);
+
+    const user = await User.create({
+    ...data,
+    password: hashedPassword,
+    });
 
   return user;
 };
@@ -35,6 +41,10 @@ export const updateUser = async (
   id: string,
   data: Partial<CreateUserInput>
 ) => {
+  if (data.password) {
+    data.password = await bcrypt.hash(data.password, 12);
+  }
+
   const updatedUser = await User.findByIdAndUpdate(
     id,
     data,
