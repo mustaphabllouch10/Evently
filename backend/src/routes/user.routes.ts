@@ -8,6 +8,7 @@ import {
 } from "../controllers/user.controller.js";
 
 import { validate } from "../middlewares/validate.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 import {
   updateUserValidator,
@@ -26,6 +27,7 @@ router.get(
 // Get user by ID
 router.get(
   "/:id",
+  authenticate,
   validate(userIdValidator, "params"),
   getUserByIdController
 );

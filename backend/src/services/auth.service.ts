@@ -48,7 +48,7 @@ export const loginUser = async (data: LoginInput) => {
 
 
   const token = jwt.sign(
-  { userId: user._id },
+  { userId: user._id.toString() },
   process.env.JWT_SECRET!
   );
 
