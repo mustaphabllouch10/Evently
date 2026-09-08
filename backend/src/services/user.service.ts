@@ -2,24 +2,6 @@ import User from "../models/user.js";
 import type { CreateUserInput } from "../types/user.types.js";
 import  bcrypt  from "bcrypt" ; 
 
-export const createUser = async (data: CreateUserInput) => {
-  const existingUser = await User.findOne({
-    email: data.email,
-  });
-
-  if (existingUser) {
-    throw new Error("Email already exists");
-  }
-
-    const hashedPassword = await bcrypt.hash(data.password, 12);
-
-    const user = await User.create({
-    ...data,
-    password: hashedPassword,
-    });
-
-  return user;
-};
 
 export const getUsers = async () => {
   const users = await User.find();

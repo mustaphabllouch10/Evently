@@ -1,43 +1,12 @@
 import type { Request, Response } from "express";
 
 import {
-  createUser,
   getUsers,
   getUserById,
   updateUser,
   deleteUser,
 } from "../services/user.service.js";
 
-
-
-export const createUserController = async (
-  req: Request,
-  res: Response
-) => {
-  try {
-    const user = await createUser(req.body);
-
-    res.status(201).json({
-      message: "User created successfully",
-      user,
-    });
-  } catch (error) {
-    console.error(error);
-
-    if (
-      error instanceof Error &&
-      error.message === "Email already exists"
-    ) {
-      return res.status(409).json({
-        message: error.message,
-      });
-    }
-
-    res.status(500).json({
-      message: "Failed to create user",
-    });
-  }
-};
 
 export const getUsersController = async (
   req: Request,

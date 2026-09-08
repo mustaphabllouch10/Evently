@@ -1,7 +1,6 @@
 import { Router } from "express";
 
 import {
-  createUserController,
   getUsersController,
   getUserByIdController,
   updateUserController,
@@ -11,19 +10,12 @@ import {
 import { validate } from "../middlewares/validate.js";
 
 import {
-  createUserValidator,
   updateUserValidator,
   userIdValidator,
 } from "../validators/user.validator.js";
 
 const router = Router();
 
-// Create user
-router.post(
-  "/",
-  validate(createUserValidator, "body"),
-  createUserController
-);
 
 // Get all users
 router.get(
