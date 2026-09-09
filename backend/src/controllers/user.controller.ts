@@ -7,6 +7,35 @@ import {
   deleteUser,
 } from "../services/user.service.js";
 
+export const getCurrentUserController = async (
+    req: Request , 
+    res: Response 
+) => {
+    try{
+        const userId = req.user?.userId ; 
+    
+        if (!userId){
+            return res.status(401).json({
+                message : "authentication required" , 
+            })
+        }
+    
+        const user = await getUserById(userId)
+    
+        res.status(200).json({
+            user ,
+        });
+
+    } catch(error) {
+        console.log(error) 
+
+        res.status(500).json({
+            message : "failed to get current user "
+        })
+    }
+
+}
+
 
 export const getUsersController = async (
   req: Request,
