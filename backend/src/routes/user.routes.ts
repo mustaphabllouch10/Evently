@@ -10,7 +10,7 @@ import {
 
 import { validate } from "../middlewares/validate.js";
 import { authenticate } from "../middlewares/auth.middleware.js";
-import { requireRole } from "../middlewares/role.middlware.js";
+import { requireRole } from "../middlewares/role.middleware.js";
 
 import {
   updateUserValidator,
@@ -59,3 +59,4 @@ router.delete(
 );
 
 export default router;
+
