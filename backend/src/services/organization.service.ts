@@ -4,6 +4,8 @@ import type {
   UpdateOrganizationInput,
 } from "../types/organization.types.js";
 
+
+
 export const createOrganization = async (
   data: CreateOrganizationInput,
   userId: string
