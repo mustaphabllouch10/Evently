@@ -1,11 +1,14 @@
 import type { Request, Response } from "express";
+
 import {
     createOrganization ,
     getOrganizations,
     getMyOrganizations,
     getOrganizationById,
     updateOrganization,
-    deleteOrganization
+    deleteOrganization ,
+    addMember , 
+    removeMember
  } from "../services/organization.service.js";
 
 export const createOrganizationController = async (
@@ -145,3 +148,60 @@ export const deleteOrganizationController = async (
     });
   }
 };
+
+export const addMemberController = async ( 
+    req:Request ,
+    res:Response
+    ) => {
+        try {
+            const userId = req.user?.userId ;
+            const { organizationId } = req.params ;
+
+            const newMember = await addMember( organizationId as string , userId as string ) ;
+            
+            res.status(200).json({
+                message: "Member added successfully",
+                newMember,
+            });
+
+        } catch(error) {
+
+            console.error(error);
+
+            res.status(500).json({
+            message: "Failed to add Member",
+            });
+
+        }
+    }
+
+
+export const removeMemberController = async ( 
+    req:Request , 
+    res:Response
+) => {
+
+        try {
+            const userId = req.user?.userId ;
+            const { organizationId } = req.params ;
+
+            const newMember = await removeMember( organizationId as string , userId as string ) ;
+            
+            res.status(200).json({
+                message: "Member removed successfully",
+                newMember,
+            });
+
+        } catch(error) {
+
+            console.error(error);
+
+            res.status(500).json({
+            message: "Failed to remove Member",
+            });
+
+        }
+
+}
+
+
