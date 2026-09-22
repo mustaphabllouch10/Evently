@@ -6,7 +6,6 @@ import type {
 } from "../types/organization.types.js";
 
 
-
 export const createOrganization = async (
   data: CreateOrganizationInput,
   userId: string
@@ -48,11 +47,11 @@ export const updateOrganization = async (
   return organization;
 };
 
+
 export const deleteOrganization = async (id: string) => {
   const organization = await Organization.findByIdAndDelete(id);
   return organization;
 }
-
 
 export const addMember = async (
   organizationId: string,
@@ -83,7 +82,6 @@ export const addMember = async (
   return organization;
 };
 
-
 export const removeMember = async (
   organizationId: string,
   userId: string
@@ -110,3 +108,20 @@ export const removeMember = async (
 
   return organization;
 };
+
+export const isOrganizationOwner = async (
+  organizationId: string,
+  userId: string
+) => {
+  const organization = await Organization.findById(
+    organizationId
+  );
+
+  if (!organization) {
+    throw new Error("Organization not found");
+  }
+
+  return organization.owner.toString() === userId;
+};
+
+
