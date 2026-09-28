@@ -1,0 +1,36 @@
+import type { Request, Response } from "express";
+
+export class {{pascalCase name}}Controller {
+  async index(req: Request, res: Response) {
+    res.json({
+      message: "Get all {{camelCase name}}s",
+    });
+  }
+
+  async show(req: Request, res: Response) {
+    res.json({
+      message: "Get {{camelCase name}}",
+      id: req.params.id,
+    });
+  }
+
+  async create(req: Request, res: Response) {
+    res.json({
+      message: "Create {{camelCase name}}",
+    });
+  }
+
+  async update(req: Request, res: Response) {
+    res.json({
+      message: "Update {{camelCase name}}",
+      id: req.params.id,
+    });
+  }
+
+  async destroy(req: Request, res: Response) {
+    res.json({
+      message: "Delete {{camelCase name}}",
+      id: req.params.id,
+    });
+  }
+}
